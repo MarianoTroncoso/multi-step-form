@@ -5,12 +5,18 @@ type Props = {
   number: number;
   name: string;
   description: string;
+  isCurrentStep: boolean;
 };
 
-const StepListItem: React.FC<Props> = ({ number, name, description }) => {
+const StepListItem: React.FC<Props> = ({
+  number,
+  name,
+  description,
+  isCurrentStep,
+}) => {
   return (
     <SC.Wrapper>
-      <div>{number}</div>
+      <SC.Number $isCurrentStep={isCurrentStep}>{number}</SC.Number>
       <div>{name}</div>
       <div>{description}</div>
     </SC.Wrapper>

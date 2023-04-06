@@ -2,7 +2,9 @@ import React from 'react';
 import * as SC from './StepList.styles';
 import StepListItem from './components/StepListItem/StepListItem';
 
-type Props = {};
+type Props = {
+  currentStep: number;
+};
 
 const steps = [
   { number: 1, name: 'Step 1', description: 'You Info' },
@@ -11,11 +13,13 @@ const steps = [
   { number: 4, name: 'Step 4', description: 'Summary' },
 ];
 
-const StepList: React.FC<Props> = () => {
+const StepList: React.FC<Props> = ({ currentStep }) => {
   return (
     <SC.Wrapper>
       {steps.map((step) => {
         const { number, name, description } = step;
+
+        const isCurrentStep = number === currentStep;
 
         return (
           <StepListItem
@@ -23,6 +27,7 @@ const StepList: React.FC<Props> = () => {
             number={number}
             name={name}
             description={description}
+            isCurrentStep={isCurrentStep}
           />
         );
       })}
