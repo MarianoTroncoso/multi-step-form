@@ -1,14 +1,16 @@
-import './App.css';
 import { GlobalStyle } from './GlobalStyle';
 import FormStep from './components/FomStep/FomStep';
 import StepList from './components/StepList';
+import * as SC from './App.styles';
 
 function App() {
   return (
     <>
       <GlobalStyle />
-      <StepList />
-      <FormStep />
+      <SC.Wrapper>
+        <StepList />
+        <FormStep />
+      </SC.Wrapper>
     </>
   );
 }
