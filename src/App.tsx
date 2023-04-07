@@ -61,12 +61,17 @@ function App() {
     }
   }, [currentStepFromUrl, navigate]);
 
+  const handleStepChange = (step: Step) => {
+    setCurrentStep(step);
+    navigate(`/${step}`);
+  };
+
   return (
     <>
       <GlobalStyle />
       <SC.Layout>
         <SC.Container>
-          <StepList currentStep={currentStep} />
+          <StepList currentStep={currentStep} onStepChange={handleStepChange} />
           <Routes>
             {Object.keys(steps).map((step) => {
               const stepNumber = Number(step) as Step;

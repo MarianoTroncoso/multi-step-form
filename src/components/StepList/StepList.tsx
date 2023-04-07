@@ -11,6 +11,7 @@ import { Step } from '../../types';
 
 type Props = {
   currentStep: Step;
+  onStepChange: (step: Step) => void;
 };
 
 const steps = [
@@ -20,7 +21,7 @@ const steps = [
   { number: FOURTH_STEP, name: 'Step 4', description: 'Summary' },
 ];
 
-const StepList: React.FC<Props> = ({ currentStep }) => {
+const StepList: React.FC<Props> = ({ currentStep, onStepChange }) => {
   return (
     <SC.Wrapper>
       {steps.map((step) => {
@@ -35,6 +36,7 @@ const StepList: React.FC<Props> = ({ currentStep }) => {
             name={name}
             description={description}
             isCurrentStep={isCurrentStep}
+            onClick={() => onStepChange(number as Step)}
           />
         );
       })}
