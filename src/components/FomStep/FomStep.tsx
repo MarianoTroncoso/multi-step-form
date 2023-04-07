@@ -1,6 +1,7 @@
 import React from 'react';
 import * as SC from './FormStep.styles';
 import { FIRST_STEP, FOURTH_STEP } from '../../constants';
+import { Step } from '../../types';
 
 type Props = {
   title: string;
@@ -8,7 +9,7 @@ type Props = {
   children: React.ReactNode;
   onPrevious: () => void;
   onNext: () => void;
-  step: number;
+  step: Step;
 };
 
 const FormStep: React.FC<Props> = ({

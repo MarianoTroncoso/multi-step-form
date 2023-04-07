@@ -7,9 +7,10 @@ import {
   SECOND_STEP,
   THIRD_STEP,
 } from '../../constants';
+import { Step } from '../../types';
 
 type Props = {
-  currentStep: number;
+  currentStep: Step;
 };
 
 const steps = [

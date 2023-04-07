@@ -4,6 +4,7 @@ import StepList from './components/StepList';
 import * as SC from './App.styles';
 import { useState } from 'react';
 import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
+import { Step } from './types';
 
 const steps = {
   [FIRST_STEP]: {
@@ -29,7 +30,7 @@ const steps = {
 };
 
 function App() {
-  const [currentStep, setCurrentStep] = useState<keyof typeof steps>(1);
+  const [currentStep, setCurrentStep] = useState<Step>(1);
 
   const handleNextStep = () => {
     setCurrentStep((currentStep + 1) as keyof typeof steps);
