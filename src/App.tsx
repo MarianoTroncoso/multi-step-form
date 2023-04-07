@@ -2,9 +2,10 @@ import { GlobalStyle } from './GlobalStyle';
 import FormStep from './components/FomStep/FomStep';
 import StepList from './components/StepList';
 import * as SC from './App.styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
 import { Step } from './types';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 const steps = {
   [FIRST_STEP]: {
@@ -30,30 +31,64 @@ const steps = {
 };
 
 function App() {
-  const [currentStep, setCurrentStep] = useState<Step>(1);
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const currentStepFromUrl = Number(location.pathname.replace('/', '')) as Step;
+
+  const [currentStep, setCurrentStep] = useState<Step>(
+    currentStepFromUrl || FIRST_STEP
+  );
 
   const handleNextStep = () => {
-    setCurrentStep((currentStep + 1) as keyof typeof steps);
+    const nextStep = (currentStep + 1) as Step;
+
+    setCurrentStep(nextStep);
+    navigate(`/${nextStep}`);
   };
 
   const handlePreviousStep = () => {
-    setCurrentStep((currentStep - 1) as keyof typeof steps);
+    const prevStep = (currentStep - 1) as Step;
+
+    setCurrentStep(prevStep);
+    navigate(`/${prevStep}`);
   };
+
+  useEffect(() => {
+    if (!currentStepFromUrl) {
+      navigate(`/${FIRST_STEP}`);
+    }
+  }, [currentStepFromUrl, navigate]);
 
   return (
     <>
       <GlobalStyle />
       <SC.Wrapper>
         <StepList currentStep={currentStep} />
-        <FormStep
-          title={steps[currentStep].title}
-          description={steps[currentStep].description}
-          onNext={handleNextStep}
-          onPrevious={handlePreviousStep}
-          step={currentStep}
-        >
-          {steps[currentStep].component}
-        </FormStep>
+        <Routes>
+          {Object.keys(steps).map((step) => {
+            const stepNumber = Number(step) as Step;
+
+            return (
+              <Route
+                key={stepNumber}
+                path={`/${stepNumber}`}
+                element={
+                  <FormStep
+                    title={steps[currentStep].title}
+                    description={steps[currentStep].description}
+                    onNext={handleNextStep}
+                    onPrevious={handlePreviousStep}
+                    step={currentStep}
+                  >
+                    {steps[currentStep].component}
+                  </FormStep>
+                }
+              />
+            );
+          })}
+        </Routes>
       </SC.Wrapper>
     </>
   );
