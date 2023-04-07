@@ -6,6 +6,7 @@ type Props = {
   name: string;
   description: string;
   isCurrentStep: boolean;
+  onClick: () => void;
 };
 
 const StepListItem: React.FC<Props> = ({
@@ -13,12 +14,15 @@ const StepListItem: React.FC<Props> = ({
   name,
   description,
   isCurrentStep,
+  onClick,
 }) => {
   return (
-    <SC.Wrapper>
+    <SC.Wrapper onClick={onClick}>
       <SC.Number $isCurrentStep={isCurrentStep}>{number}</SC.Number>
-      <div>{name}</div>
-      <div>{description}</div>
+      <SC.RightContent>
+        <div>{name}</div>
+        <div>{description}</div>
+      </SC.RightContent>
     </SC.Wrapper>
   );
 };

@@ -61,35 +61,42 @@ function App() {
     }
   }, [currentStepFromUrl, navigate]);
 
+  const handleStepChange = (step: Step) => {
+    setCurrentStep(step);
+    navigate(`/${step}`);
+  };
+
   return (
     <>
       <GlobalStyle />
-      <SC.Wrapper>
-        <StepList currentStep={currentStep} />
-        <Routes>
-          {Object.keys(steps).map((step) => {
-            const stepNumber = Number(step) as Step;
+      <SC.Layout>
+        <SC.Container>
+          <StepList currentStep={currentStep} onStepChange={handleStepChange} />
+          <Routes>
+            {Object.keys(steps).map((step) => {
+              const stepNumber = Number(step) as Step;
 
-            return (
-              <Route
-                key={stepNumber}
-                path={`/${stepNumber}`}
-                element={
-                  <FormStep
-                    title={steps[currentStep].title}
-                    description={steps[currentStep].description}
-                    onNext={handleNextStep}
-                    onPrevious={handlePreviousStep}
-                    step={currentStep}
-                  >
-                    {steps[currentStep].component}
-                  </FormStep>
-                }
-              />
-            );
-          })}
-        </Routes>
-      </SC.Wrapper>
+              return (
+                <Route
+                  key={stepNumber}
+                  path={`/${stepNumber}`}
+                  element={
+                    <FormStep
+                      title={steps[currentStep].title}
+                      description={steps[currentStep].description}
+                      onNext={handleNextStep}
+                      onPrevious={handlePreviousStep}
+                      step={currentStep}
+                    >
+                      {steps[currentStep].component}
+                    </FormStep>
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </SC.Container>
+      </SC.Layout>
     </>
   );
 }
