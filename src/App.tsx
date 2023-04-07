@@ -3,24 +3,25 @@ import FormStep from './components/FomStep/FomStep';
 import StepList from './components/StepList';
 import * as SC from './App.styles';
 import { useState } from 'react';
+import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
 
 const steps = {
-  1: {
+  [FIRST_STEP]: {
     title: 'Personal Info',
     description: 'Please provide your name, email address, and phone number.',
     component: <div>Primer Paso</div>,
   },
-  2: {
+  [SECOND_STEP]: {
     title: 'Select Plan',
     description: 'You have the option of monthly or yearly billing.',
     component: <div>Segundo Paso</div>,
   },
-  3: {
+  [THIRD_STEP]: {
     title: 'Pick add-ons',
     description: 'Add-ons help enhance your gaming experience.',
     component: <div>Tercer Paso</div>,
   },
-  4: {
+  [FOURTH_STEP]: {
     title: 'Finishing up',
     description: 'Double-check everything looks OK before confirming.',
     component: <div>Cuarto Paso</div>,

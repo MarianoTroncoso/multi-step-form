@@ -1,5 +1,6 @@
 import React from 'react';
 import * as SC from './FormStep.styles';
+import { FIRST_STEP, FOURTH_STEP } from '../../constants';
 
 type Props = {
   title: string;
@@ -18,9 +19,9 @@ const FormStep: React.FC<Props> = ({
   onNext,
   step,
 }) => {
-  const isFirstStep = step === 1;
+  const isFirstStep = step === FIRST_STEP;
 
-  const isLastStep = step === 4;
+  const isLastStep = step === FOURTH_STEP;
 
   return (
     <SC.Wrapper>
