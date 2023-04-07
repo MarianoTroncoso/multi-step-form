@@ -26,9 +26,9 @@ const FormStep: React.FC<Props> = ({
 
   return (
     <SC.Wrapper>
-      <div>{title}</div>
-      <div>{description}</div>
-      {children}
+      <SC.Title>{title}</SC.Title>
+      <SC.Description>{description}</SC.Description>
+      <SC.ChildrenWrapper>{children}</SC.ChildrenWrapper>
       <SC.FooterWrapper>
         {!isFirstStep && (
           <SC.BackButton onClick={onPrevious}>Go back</SC.BackButton>
