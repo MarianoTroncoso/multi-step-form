@@ -13,17 +13,6 @@ export const FooterWrapper = styled.div`
   margin-top: auto;
 `;
 
-// TODO: create Button component
-export const Button = styled.button``;
-
-export const BackButton = styled(Button)`
-  margin-right: auto;
-`;
-
-export const NextButton = styled(Button)`
-  margin-left: auto;
-`;
-
 export const Title = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.large};
   margin: 0;

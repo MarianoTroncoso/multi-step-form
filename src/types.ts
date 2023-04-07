@@ -4,3 +4,5 @@ export type Step =
   | typeof SECOND_STEP
   | typeof THIRD_STEP
   | typeof FOURTH_STEP;
+
+export type ButtonVariant = 'back' | 'next';

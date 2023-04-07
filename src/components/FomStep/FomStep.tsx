@@ -2,6 +2,7 @@ import React from 'react';
 import * as SC from './FormStep.styles';
 import { FIRST_STEP, FOURTH_STEP } from '../../constants';
 import { Step } from '../../types';
+import Button from '../Button/Button';
 
 type Props = {
   title: string;
@@ -31,11 +32,11 @@ const FormStep: React.FC<Props> = ({
       <SC.ChildrenWrapper>{children}</SC.ChildrenWrapper>
       <SC.FooterWrapper>
         {!isFirstStep && (
-          <SC.BackButton onClick={onPrevious}>Go back</SC.BackButton>
+          <Button onClick={onPrevious} variant="back">
+            Go Back
+          </Button>
         )}
-        {!isLastStep && (
-          <SC.NextButton onClick={onNext}>Next Step</SC.NextButton>
-        )}
+        {!isLastStep && <Button onClick={onNext}>Next Step</Button>}
       </SC.FooterWrapper>
     </SC.Wrapper>
   );
