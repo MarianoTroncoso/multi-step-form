@@ -23,9 +23,9 @@ const theme = {
     dark: '#343a40',
   },
   fontSizes: {
-    small: '12px',
+    small: '14px',
     medium: '16px',
-    large: '20px',
+    large: '2rem',
   },
   fontWeights: {
     regular: 400,
