@@ -40,16 +40,18 @@ function App() {
 
   const currentStepFromUrl = Number(location.pathname.replace('/', '')) as Step;
 
-  const { form } = useMyForm();
+  const { form, isProgressValid } = useMyForm();
 
   const [currentStep, setCurrentStep] = useState<Step>(
     currentStepFromUrl || FIRST_STEP
   );
 
-  const handleNextStep = () => {
-    const nextStep = (currentStep + 1) as Step;
-    setCurrentStep(nextStep);
-    navigate(`/${nextStep}`);
+  const handleNextStep = async () => {
+    if (await isProgressValid()) {
+      const nextStep = (currentStep + 1) as Step;
+      setCurrentStep(nextStep);
+      navigate(`/${nextStep}`);
+    }
   };
 
   const handlePreviousStep = () => {
