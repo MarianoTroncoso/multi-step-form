@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
 import { Step } from './types';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import PersonalInfo from './components/PersonalInfo';
 
 const steps = {
   [FIRST_STEP]: {
     title: 'Personal Info',
     description: 'Please provide your name, email address, and phone number.',
-    component: <div>Primer Paso</div>,
+    component: <PersonalInfo />,
   },
   [SECOND_STEP]: {
     title: 'Select Plan',
