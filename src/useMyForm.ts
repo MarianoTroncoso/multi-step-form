@@ -36,17 +36,25 @@ const useMyForm = () => {
   const isProgressValid = async () => {
     const { validateForm, touched } = form;
 
+    const hasTouchedFields = Object.keys(touched).length > 0;
+
     const errors = await validateForm();
 
     const fieldsWithErrors = Object.keys(errors);
 
-    const touchedFields = Object.keys(touched);
+    if (hasTouchedFields) {
+      const touchedFields = Object.keys(touched);
 
-    const hasErrorInTouchedField = fieldsWithErrors.some((field) =>
-      touchedFields.includes(field)
-    );
+      const hasErrorInTouchedField = fieldsWithErrors.some((field) =>
+        touchedFields.includes(field)
+      );
 
-    return !hasErrorInTouchedField;
+      return !hasErrorInTouchedField;
+    } else {
+      const hasError = fieldsWithErrors.length > 0;
+
+      return !hasError;
+    }
   };
 
   return { form, validationSchema, isProgressValid };
