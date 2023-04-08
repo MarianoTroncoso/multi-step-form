@@ -29,7 +29,6 @@ const useMyForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: () => {},
-    validateOnChange: false,
     validateOnBlur: false,
   });
 

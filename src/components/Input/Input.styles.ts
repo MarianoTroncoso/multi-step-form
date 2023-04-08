@@ -21,6 +21,10 @@ export const Wrapper = styled.div`
   input[name='name'] {
     text-transform: capitalize;
   }
+
+  ::placeholder {
+    color: ${({ theme }) => theme.colors.neutral[0]};
+  }
 `;
 
 export const Label = styled.label`
