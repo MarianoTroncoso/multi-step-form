@@ -48,7 +48,6 @@ function App() {
 
   const handleNextStep = () => {
     const nextStep = (currentStep + 1) as Step;
-
     setCurrentStep(nextStep);
     navigate(`/${nextStep}`);
   };
