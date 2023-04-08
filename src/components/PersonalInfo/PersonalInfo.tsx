@@ -1,14 +1,21 @@
 import React from 'react';
 import * as SC from './PersonalInfo.styles';
+import { FastField } from 'formik';
 
 type Props = {};
 
 const PersonalInfo: React.FC<Props> = () => {
   return (
     <SC.Wrapper>
-      <div>Name</div>
-      <div>Email Address</div>
-      <div>Phone number</div>
+      <div>
+        <FastField name="name" />
+      </div>
+      <div>
+        <FastField name="email" />
+      </div>
+      <div>
+        <FastField name="phone" />
+      </div>
     </SC.Wrapper>
   );
 };

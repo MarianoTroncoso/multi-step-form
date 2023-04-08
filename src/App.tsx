@@ -7,6 +7,8 @@ import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
 import { Step } from './types';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import PersonalInfo from './components/PersonalInfo';
+import { FormikProvider } from 'formik';
+import useMyForm from './useMyForm';
 
 const steps = {
   [FIRST_STEP]: {
@@ -37,6 +39,8 @@ function App() {
   const location = useLocation();
 
   const currentStepFromUrl = Number(location.pathname.replace('/', '')) as Step;
+
+  const { form } = useMyForm();
 
   const [currentStep, setCurrentStep] = useState<Step>(
     currentStepFromUrl || FIRST_STEP
@@ -70,34 +74,39 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <SC.Layout>
-        <SC.Container>
-          <StepList currentStep={currentStep} onStepChange={handleStepChange} />
-          <Routes>
-            {Object.keys(steps).map((step) => {
-              const stepNumber = Number(step) as Step;
+      <FormikProvider value={form}>
+        <SC.Layout>
+          <SC.Container>
+            <StepList
+              currentStep={currentStep}
+              onStepChange={handleStepChange}
+            />
+            <Routes>
+              {Object.keys(steps).map((step) => {
+                const stepNumber = Number(step) as Step;
 
-              return (
-                <Route
-                  key={stepNumber}
-                  path={`/${stepNumber}`}
-                  element={
-                    <FormStep
-                      title={steps[currentStep].title}
-                      description={steps[currentStep].description}
-                      onNext={handleNextStep}
-                      onPrevious={handlePreviousStep}
-                      step={currentStep}
-                    >
-                      {steps[currentStep].component}
-                    </FormStep>
-                  }
-                />
-              );
-            })}
-          </Routes>
-        </SC.Container>
-      </SC.Layout>
+                return (
+                  <Route
+                    key={stepNumber}
+                    path={`/${stepNumber}`}
+                    element={
+                      <FormStep
+                        title={steps[currentStep].title}
+                        description={steps[currentStep].description}
+                        onNext={handleNextStep}
+                        onPrevious={handlePreviousStep}
+                        step={currentStep}
+                      >
+                        {steps[currentStep].component}
+                      </FormStep>
+                    }
+                  />
+                );
+              })}
+            </Routes>
+          </SC.Container>
+        </SC.Layout>
+      </FormikProvider>
     </>
   );
 }
