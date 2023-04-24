@@ -9,6 +9,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import PersonalInfo from './components/PersonalInfo';
 import { FormikProvider } from 'formik';
 import useMyForm from './useMyForm';
+import SelectPlan from './components/SelectPlan';
 
 const steps = {
   [FIRST_STEP]: {
@@ -19,7 +20,7 @@ const steps = {
   [SECOND_STEP]: {
     title: 'Select Plan',
     description: 'You have the option of monthly or yearly billing.',
-    component: <div>Segundo Paso</div>,
+    component: <SelectPlan />,
   },
   [THIRD_STEP]: {
     title: 'Pick add-ons',
