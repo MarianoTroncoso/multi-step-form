@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 
 export const Wrapper = styled.div``;
 
@@ -36,4 +36,27 @@ export const Price = styled.div`
   font-size: ${(props) => props.theme.fontSizes.medium};
   color: ${(props) => props.theme.colors.neutral[0]};
   padding-top: 0.2rem;
+`;
+
+export const SwitchWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.colors.neutral[3]};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  border-radius: 0.25rem;
+  margin-top: 2rem;
+  color: ${(props) => props.theme.colors.neutral[0]};
+  font-weight: ${(props) => props.theme.fontWeights.medium};
+`;
+
+export const BillingType = styled.div<{ $isSelected?: boolean }>`
+  cursor: pointer;
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    css`
+      font-weight: ${(props) => props.theme.fontWeights.medium};
+      color: ${(props) => props.theme.colors.primary[0]};
+    `}
 `;

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as SC from './SelectPlan.styles';
 import { IconArcade, IconAdvanced, IconPro } from '../../assets/images';
+import Switch from '../Switch';
 
 type Props = {};
 
 const SelectPlan: React.FC<Props> = () => {
+  const [isYearlySelected, setIsYearlySelected] = useState<boolean>(true);
+
   return (
     <SC.Wrapper>
       <SC.PlanTypes>
@@ -36,6 +39,30 @@ const SelectPlan: React.FC<Props> = () => {
           </SC.Description>
         </SC.PlanType>
       </SC.PlanTypes>
+      <SC.SwitchWrapper>
+        <SC.BillingType
+          $isSelected={!isYearlySelected}
+          onClick={() => {
+            setIsYearlySelected(false);
+          }}
+        >
+          Monthly
+        </SC.BillingType>
+        <div>
+          <Switch
+            isSwitched={isYearlySelected}
+            handleSwitch={() => setIsYearlySelected(!isYearlySelected)}
+          />
+        </div>
+        <SC.BillingType
+          $isSelected={isYearlySelected}
+          onClick={() => {
+            setIsYearlySelected(true);
+          }}
+        >
+          Yearly
+        </SC.BillingType>
+      </SC.SwitchWrapper>
     </SC.Wrapper>
   );
 };
