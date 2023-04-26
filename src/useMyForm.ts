@@ -1,11 +1,13 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { PlanBillingEnum, PlanTypeEnum } from './enums';
 
-type FormValues = {
+export type FormValues = {
   name: string;
   email: string;
   phone: string;
-  plan: string;
+  planType: PlanTypeEnum;
+  planBilling: PlanBillingEnum;
 };
 
 const REQUIRED_FIELD_ERROR_MESSAGE = 'This field is required';
@@ -25,7 +27,8 @@ const useMyForm = () => {
       name: '',
       email: '',
       phone: '',
-      plan: '',
+      planType: PlanTypeEnum.ARCADE,
+      planBilling: PlanBillingEnum.MONTHLY,
     },
     validationSchema: validationSchema,
     onSubmit: () => {},

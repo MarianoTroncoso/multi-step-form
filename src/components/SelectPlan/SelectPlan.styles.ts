@@ -8,7 +8,7 @@ export const PlanTypes = styled.div`
   gap: 1rem;
 `;
 
-export const PlanType = styled.div`
+export const PlanType = styled.div<{ $isSelected: boolean }>`
   border: 1px solid ${(props) => props.theme.colors.neutral[1]};
   width: 100%;
   padding: 1.5rem 1rem;
@@ -18,8 +18,14 @@ export const PlanType = styled.div`
 
   &:hover {
     border: 1px solid ${(props) => props.theme.colors.primary[1]};
-    background-color: ${(props) => props.theme.colors.neutral[2]};
   }
+
+  ${({ $isSelected }) =>
+    $isSelected &&
+    css`
+      border: 1px solid ${(props) => props.theme.colors.primary[1]};
+      background-color: ${(props) => props.theme.colors.neutral[2]};
+    `}
 `;
 
 export const Description = styled.div`
