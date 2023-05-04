@@ -47,28 +47,19 @@ function App() {
     currentStepFromUrl || FIRST_STEP
   );
 
-  const handleNextStep = async () => {
-    if (await isProgressValid()) {
-      const nextStep = (currentStep + 1) as Step;
-      setCurrentStep(nextStep);
-      navigate(`/${nextStep}`);
-    }
-  };
-
-  const handlePreviousStep = () => {
-    const prevStep = (currentStep - 1) as Step;
-
-    setCurrentStep(prevStep);
-    navigate(`/${prevStep}`);
-  };
-
   useEffect(() => {
     if (!currentStepFromUrl) {
       navigate(`/${FIRST_STEP}`);
     }
   }, [currentStepFromUrl, navigate]);
 
-  const handleStepChange = (step: Step) => {
+  const handleStepChange = async (step: Step) => {
+    if (step === currentStep) return;
+
+    const isGreaterStep = step > currentStep;
+
+    if (isGreaterStep && !(await isProgressValid())) return;
+
     setCurrentStep(step);
     navigate(`/${step}`);
   };
@@ -95,8 +86,12 @@ function App() {
                       <FormStep
                         title={steps[currentStep].title}
                         description={steps[currentStep].description}
-                        onNext={handleNextStep}
-                        onPrevious={handlePreviousStep}
+                        onNext={() =>
+                          handleStepChange((currentStep + 1) as Step)
+                        }
+                        onPrevious={() =>
+                          handleStepChange((currentStep - 1) as Step)
+                        }
                         step={currentStep}
                       >
                         {steps[currentStep].component}
