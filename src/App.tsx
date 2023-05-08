@@ -5,11 +5,12 @@ import * as SC from './App.styles';
 import { useEffect, useState } from 'react';
 import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
 import { Step } from './types';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import PersonalInfo from './components/PersonalInfo';
 import { FormikProvider } from 'formik';
 import useMyForm from './useMyForm';
 import SelectPlan from './components/SelectPlan';
+import useGetStepFromUrl from './useGetStepFromUrl';
 
 const steps = {
   [FIRST_STEP]: {
@@ -37,31 +38,56 @@ const steps = {
 function App() {
   const navigate = useNavigate();
 
-  const location = useLocation();
+  const [lastValidStep, setLastValidStep] = useState<Step>(FIRST_STEP);
 
-  const currentStepFromUrl = Number(location.pathname.replace('/', '')) as Step;
-
-  const { form, isProgressValid } = useMyForm();
+  const { currentStepFromUrl } = useGetStepFromUrl({ lastValidStep }) as {
+    currentStepFromUrl: Step;
+  };
 
   const [currentStep, setCurrentStep] = useState<Step>(
     currentStepFromUrl || FIRST_STEP
   );
 
-  useEffect(() => {
-    if (!currentStepFromUrl) {
-      navigate(`/${FIRST_STEP}`);
-    }
-  }, [currentStepFromUrl, navigate]);
+  const { form, isProgressValid } = useMyForm();
 
-  const handleStepChange = async (step: Step) => {
-    if (step === currentStep) return;
+  const isNextStepValid = async (step: Step) => {
+    if (step === currentStep) return true;
 
     const isGreaterStep = step > currentStep;
 
-    if (isGreaterStep && !(await isProgressValid())) return;
+    if (isGreaterStep && !(await isProgressValid())) return false;
 
-    setCurrentStep(step);
-    navigate(`/${step}`);
+    return true;
+  };
+
+  useEffect(() => {
+    if (!currentStepFromUrl) {
+      setCurrentStep(FIRST_STEP);
+      navigate(`/${FIRST_STEP}`);
+    }
+
+    if (currentStepFromUrl > lastValidStep) {
+      setCurrentStep(lastValidStep);
+      navigate(`/${lastValidStep}`);
+    }
+
+    if (
+      currentStepFromUrl < lastValidStep ||
+      currentStepFromUrl === lastValidStep
+    ) {
+      setCurrentStep(currentStepFromUrl);
+    }
+  }, [currentStepFromUrl, lastValidStep, navigate]);
+
+  const handleStepChange = async (step: Step) => {
+    if (await isNextStepValid(step)) {
+      if (step > lastValidStep) {
+        setLastValidStep(step);
+      }
+
+      setCurrentStep(step);
+      navigate(`/${step}`);
+    }
   };
 
   return (
