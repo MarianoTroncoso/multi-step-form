@@ -6,7 +6,7 @@ type Props = {
   lastValidStep: Step;
 };
 
-const useGetStepFromUrl = ({ lastValidStep }: Props) => {
+const useGetStepFromUrl = ({ lastValidStep }: Props): Step => {
   const location = useLocation();
 
   const currentStepFromUrl = Number(location.pathname.replace('/', '')) as Step;
@@ -19,7 +19,7 @@ const useGetStepFromUrl = ({ lastValidStep }: Props) => {
     return lastValidStep;
   }
 
-  return { currentStepFromUrl };
+  return currentStepFromUrl;
 };
 
 export default useGetStepFromUrl;

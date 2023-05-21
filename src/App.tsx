@@ -40,9 +40,7 @@ function App() {
 
   const [lastValidStep, setLastValidStep] = useState<Step>(FIRST_STEP);
 
-  const { currentStepFromUrl } = useGetStepFromUrl({ lastValidStep }) as {
-    currentStepFromUrl: Step;
-  };
+  const currentStepFromUrl = useGetStepFromUrl({ lastValidStep });
 
   const [currentStep, setCurrentStep] = useState<Step>(
     currentStepFromUrl || FIRST_STEP
@@ -61,23 +59,17 @@ function App() {
   };
 
   useEffect(() => {
-    if (!currentStepFromUrl) {
-      setCurrentStep(FIRST_STEP);
-      navigate(`/${FIRST_STEP}`);
-    }
-
+    // if the users wants to advance by url to an invalid step, we redirect him to the last valid step
     if (currentStepFromUrl > lastValidStep) {
       setCurrentStep(lastValidStep);
       navigate(`/${lastValidStep}`);
+      return;
     }
 
-    if (
-      currentStepFromUrl < lastValidStep ||
-      currentStepFromUrl === lastValidStep
-    ) {
-      setCurrentStep(currentStepFromUrl);
-    }
-  }, [currentStepFromUrl, lastValidStep, navigate]);
+    // TODO: if the user wants to advance by url to a valid step, we redirect him to that step (add after connect with LS)
+
+    navigate(`/${currentStep}`);
+  }, [currentStep, currentStepFromUrl, lastValidStep, navigate]);
 
   const handleStepChange = async (step: Step) => {
     if (await isNextStepValid(step)) {
