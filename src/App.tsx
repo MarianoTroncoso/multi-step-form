@@ -40,8 +40,6 @@ function App() {
 
   const { lastValidStep, setLastValidStep } = useFormContext();
 
-  // const [lastValidStep, setLastValidStep] = useState<Step>(FIRST_STEP);
-
   const currentStepFromUrl = useGetStepFromUrl({ lastValidStep });
 
   const [currentStep, setCurrentStep] = useState<Step>(
@@ -61,14 +59,11 @@ function App() {
   };
 
   useEffect(() => {
-    // if the users wants to advance by url to an invalid step, we redirect him to the last valid step
     if (currentStepFromUrl > lastValidStep) {
       setCurrentStep(lastValidStep);
       navigate(`/${lastValidStep}`);
       return;
     }
-
-    // TODO: if the user wants to advance by url to a valid step, we redirect him to that step (add after connect with LS)
 
     navigate(`/${currentStep}`);
   }, [currentStep, currentStepFromUrl, lastValidStep, navigate]);
