@@ -7,9 +7,10 @@ type Props = {
   label?: string;
   type?: string;
   placeholder?: string;
+  onBlur?: () => void;
 };
 
-const Input: React.FC<Props> = ({ name, label, type, placeholder }) => {
+const Input: React.FC<Props> = ({ name, label, type, placeholder, onBlur }) => {
   const [field, meta] = useField({ name });
 
   const { error } = meta;
@@ -24,7 +25,12 @@ const Input: React.FC<Props> = ({ name, label, type, placeholder }) => {
                 {label && <SC.Label htmlFor={name}>{label}</SC.Label>}
                 {error && <SC.Error>{error}</SC.Error>}
               </SC.AboveInputContent>
-              <input {...field} type={type} placeholder={placeholder} />
+              <input
+                {...field}
+                type={type}
+                placeholder={placeholder}
+                onBlur={onBlur}
+              />
             </>
           )}
         </FastField>

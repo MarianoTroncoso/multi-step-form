@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as SC from './SelectPlan.styles';
 import Switch from '../Switch';
-import { PlanBillingEnum, PlanTypeEnum } from '../../enums';
+import { FormFieldsEnum, PlanBillingEnum, PlanTypeEnum } from '../../enums';
 import { getPlanTypes } from './utils';
 import { Field, FormikErrors, FormikValues } from 'formik';
 
@@ -19,7 +19,7 @@ const SelectPlan: React.FC = () => {
 
   return (
     <SC.Wrapper>
-      <Field name="planType">
+      <Field name={FormFieldsEnum.PLAN_TYPE}>
         {({
           form: { setFieldValue },
         }: {
@@ -33,7 +33,7 @@ const SelectPlan: React.FC = () => {
         }) => {
           const handlePlanTypeClick = (planType: PlanTypeEnum) => {
             setSelectedPlanType(planType);
-            setFieldValue('planType', planType);
+            setFieldValue(FormFieldsEnum.PLAN_TYPE, planType);
           };
 
           return (
@@ -64,7 +64,7 @@ const SelectPlan: React.FC = () => {
         }}
       </Field>
 
-      <Field name="planBilling">
+      <Field name={FormFieldsEnum.PLAN_BILLING}>
         {({
           form: { setFieldValue },
         }: {
@@ -78,7 +78,7 @@ const SelectPlan: React.FC = () => {
         }) => {
           const handlePlanBillingClick = (planBilling: PlanBillingEnum) => {
             setSelectedPlanBilling(planBilling);
-            setFieldValue('planBilling', planBilling);
+            setFieldValue(FormFieldsEnum.PLAN_BILLING, planBilling);
           };
 
           return (
