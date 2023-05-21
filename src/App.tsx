@@ -10,6 +10,7 @@ import { FormikProvider } from 'formik';
 import useMyForm from './useMyForm';
 import SelectPlan from './components/SelectPlan';
 import useGetStepFromUrl from './useGetStepFromUrl';
+import useFormContext from './context/formContext/useFormContext';
 
 const steps = {
   [FIRST_STEP]: {
@@ -37,7 +38,9 @@ const steps = {
 function App() {
   const navigate = useNavigate();
 
-  const [lastValidStep, setLastValidStep] = useState<Step>(FIRST_STEP);
+  const { lastValidStep, setLastValidStep } = useFormContext();
+
+  // const [lastValidStep, setLastValidStep] = useState<Step>(FIRST_STEP);
 
   const currentStepFromUrl = useGetStepFromUrl({ lastValidStep });
 

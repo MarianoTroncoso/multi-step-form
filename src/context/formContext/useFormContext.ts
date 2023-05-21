@@ -1,11 +1,5 @@
 import { useContext } from 'react';
-import FormContext from '.';
-import { FormValuesType } from '../../types';
-
-type FormContextData = {
-  values: FormValuesType;
-  setValues: React.Dispatch<React.SetStateAction<FormValuesType>>;
-};
+import FormContext, { FormContextData } from '.';
 
 const useFormContext = (): FormContextData => {
   const formContext = useContext(FormContext);

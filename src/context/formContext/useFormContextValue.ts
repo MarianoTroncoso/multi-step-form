@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { PlanBillingEnum, PlanTypeEnum } from '../../enums';
-import { FormValuesType } from '../../types';
+import { FormValuesType, Step } from '../../types';
 import { FormContextData } from '.';
 import { isEmpty } from 'lodash';
+import { FIRST_STEP } from '../../constants';
 
 export const DEFAULT_FORM_VALUES_CONFIG: FormValuesType = {
   name: '',
@@ -23,18 +24,25 @@ const useFormContextValue = (): FormContextData => {
       : formValuesConfig.values
   );
 
+  const [lastValidStep, setLastValidStep] = useState<Step>(
+    isEmpty(formValuesConfig) ? FIRST_STEP : formValuesConfig.lastValidStep
+  );
+
   useEffect(() => {
     localStorage.setItem(
       'formValuesConfig',
       JSON.stringify({
         values,
+        lastValidStep,
       })
     );
-  }, [values]);
+  }, [lastValidStep, values]);
 
   return {
     values,
     setValues,
+    lastValidStep,
+    setLastValidStep,
   };
 };
 
