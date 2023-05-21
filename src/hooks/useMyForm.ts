@@ -1,3 +1,4 @@
+import { AddOn } from './../components/PickAddOns/PickAddOns.styles';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { FormValuesType } from '../types';
@@ -13,6 +14,7 @@ const validationSchema = Yup.object().shape({
   phone: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
   planType: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
   planBilling: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
+  addOns: Yup.array().of(Yup.object().shape(AddOn)),
 });
 
 const useMyForm = () => {

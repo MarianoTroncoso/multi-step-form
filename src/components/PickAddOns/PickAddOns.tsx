@@ -1,12 +1,8 @@
 import React from 'react';
 import * as SC from './PickAddOns.styles';
 import useCheckboxList from '../../hooks/useCheckBoxList';
-
-type AddOn = {
-  title: string;
-  description: string;
-  price: string;
-};
+import { AddOn } from '../../types';
+import useFormContext from '../../context/formContext/useFormContext';
 
 const addOns: AddOn[] = [
   {
@@ -27,12 +23,36 @@ const addOns: AddOn[] = [
 ];
 
 const PickAddOns: React.FC = () => {
+  const { values: formContextValues, setValues } = useFormContext();
+
+  const defaultChecked = formContextValues.addOns.map((addOn) => addOn.title);
+
   const { isChecked, handleChange } = useCheckboxList({
-    defaultChecked: [],
+    defaultChecked,
   });
 
   const handleClick = (title: string) => {
     handleChange(title);
+
+    const currentAddOn = addOns.find((addOn) => addOn.title === title) as AddOn;
+
+    const isCurrentAddOnChecked =
+      formContextValues.addOns.includes(currentAddOn);
+
+    if (isCurrentAddOnChecked) {
+      const newAddOns = formContextValues.addOns.filter(
+        (addOn) => addOn.title !== title
+      );
+      setValues({
+        ...formContextValues,
+        addOns: newAddOns,
+      });
+    } else {
+      setValues({
+        ...formContextValues,
+        addOns: [...formContextValues.addOns, currentAddOn],
+      });
+    }
   };
 
   return (

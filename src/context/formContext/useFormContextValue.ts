@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PlanBillingEnum, PlanTypeEnum } from '../../enums';
-import { FormValuesType, Step } from '../../types';
+import { AddOn, FormValuesType, Step } from '../../types';
 import { FormContextData } from '.';
 import { isEmpty } from 'lodash';
 import { FIRST_STEP } from '../../constants';
@@ -11,6 +11,7 @@ export const DEFAULT_FORM_VALUES_CONFIG: FormValuesType = {
   phone: '',
   planType: PlanTypeEnum.ARCADE,
   planBilling: PlanBillingEnum.MONTHLY,
+  addOns: [] as AddOn[],
 };
 
 const formValuesConfig = JSON.parse(
