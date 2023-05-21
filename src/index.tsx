@@ -5,15 +5,31 @@ import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 import { BrowserRouter } from 'react-router-dom';
+import useFormContextValue from './context/formContext/useFormContextValue';
+import FormContext from './context/formContext';
+import { GlobalStyle } from './GlobalStyle';
+
+export const Wrapper = ({ children }: { children: React.ReactNode }) => {
+  const formContextValue = useFormContextValue();
+
+  return (
+    <>
+      <GlobalStyle />
+      <FormContext.Provider value={formContextValue}>
+        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      </FormContext.Provider>
+    </>
+  );
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <BrowserRouter>
-    <ThemeProvider theme={theme}>
+    <Wrapper>
       <App />
-    </ThemeProvider>
+    </Wrapper>
   </BrowserRouter>
 );
 
