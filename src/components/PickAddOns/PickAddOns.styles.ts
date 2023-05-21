@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -6,13 +6,20 @@ export const Wrapper = styled.div`
   gap: 1rem;
 `;
 
-export const AddOn = styled.div`
+export const AddOn = styled.div<{ $isChecked: boolean }>`
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.colors.neutral[1]};
   border-radius: 0.5rem;
+
+  ${({ $isChecked }) =>
+    $isChecked &&
+    css`
+      background-color: ${(props) => props.theme.colors.neutral[2]};
+      border: 1px solid ${(props) => props.theme.colors.primary[1]};
+    `}
 `;
 
 export const Left = styled.div`
@@ -32,4 +39,15 @@ export const Description = styled.div`
 export const Price = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.small};
   color: ${({ theme }) => theme.colors.primary[1]};
+`;
+
+export const CheckBoxWrapper = styled.div`
+  padding: 0 1rem;
+
+  display: flex;
+
+  input[type='checkbox' i] {
+    margin: 0 !important;
+    width: 1.2rem !important;
+  }
 `;
