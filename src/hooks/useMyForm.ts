@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { FormValuesType } from './types';
-import useFormContext from './context/formContext/useFormContext';
+import { FormValuesType } from '../types';
+import useFormContext from '../context/formContext/useFormContext';
 
 const REQUIRED_FIELD_ERROR_MESSAGE = 'This field is required';
 

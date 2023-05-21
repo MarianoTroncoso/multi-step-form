@@ -34,7 +34,9 @@ const PickAddOns: React.FC = () => {
         return (
           <SC.AddOn key={title}>
             <SC.Left>
-              {/* <div>check</div> */}
+              <div>
+                <input type="checkbox" checked={true} onChange={() => {}} />
+              </div>
               <div>
                 <SC.Title>{title}</SC.Title>
                 <SC.Description>{description}</SC.Description>

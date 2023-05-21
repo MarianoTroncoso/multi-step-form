@@ -7,9 +7,9 @@ import { Step } from './types';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import PersonalInfo from './components/PersonalInfo';
 import { FormikProvider } from 'formik';
-import useMyForm from './useMyForm';
+import useMyForm from './hooks/useMyForm';
 import SelectPlan from './components/SelectPlan';
-import useGetStepFromUrl from './useGetStepFromUrl';
+import useGetStepFromUrl from './hooks/useGetStepFromUrl';
 import useFormContext from './context/formContext/useFormContext';
 import PickAddOns from './components/PickAddOns';
 
