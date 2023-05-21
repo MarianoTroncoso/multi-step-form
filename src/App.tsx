@@ -11,6 +11,7 @@ import useMyForm from './useMyForm';
 import SelectPlan from './components/SelectPlan';
 import useGetStepFromUrl from './useGetStepFromUrl';
 import useFormContext from './context/formContext/useFormContext';
+import PickAddOns from './components/PickAddOns';
 
 const steps = {
   [FIRST_STEP]: {
@@ -26,7 +27,7 @@ const steps = {
   [THIRD_STEP]: {
     title: 'Pick add-ons',
     description: 'Add-ons help enhance your gaming experience.',
-    component: <div>Tercer Paso</div>,
+    component: <PickAddOns />,
   },
   [FOURTH_STEP]: {
     title: 'Finishing up',
