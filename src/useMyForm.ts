@@ -1,14 +1,7 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { PlanBillingEnum, PlanTypeEnum } from './enums';
-
-export type FormValues = {
-  name: string;
-  email: string;
-  phone: string;
-  planType: PlanTypeEnum;
-  planBilling: PlanBillingEnum;
-};
+import { FormValuesType } from './types';
+import useFormContext from './context/formContext/useFormContext';
 
 const REQUIRED_FIELD_ERROR_MESSAGE = 'This field is required';
 
@@ -18,19 +11,16 @@ const validationSchema = Yup.object().shape({
     .email('Invalid email')
     .required(REQUIRED_FIELD_ERROR_MESSAGE),
   phone: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
-  plan: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
+  planType: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
+  planBilling: Yup.string().required(REQUIRED_FIELD_ERROR_MESSAGE),
 });
 
 const useMyForm = () => {
-  const form = useFormik<FormValues>({
-    initialValues: {
-      name: '',
-      email: '',
-      phone: '',
-      planType: PlanTypeEnum.ARCADE,
-      planBilling: PlanBillingEnum.MONTHLY,
-    },
-    validationSchema: validationSchema,
+  const { values: initialValues } = useFormContext();
+
+  const form = useFormik<FormValuesType>({
+    initialValues,
+    validationSchema,
     onSubmit: () => {},
     validateOnBlur: false,
   });

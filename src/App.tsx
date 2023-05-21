@@ -1,4 +1,3 @@
-import { GlobalStyle } from './GlobalStyle';
 import FormStep from './components/FomStep/FomStep';
 import StepList from './components/StepList';
 import * as SC from './App.styles';
@@ -83,46 +82,38 @@ function App() {
   };
 
   return (
-    <>
-      <GlobalStyle />
-      <FormikProvider value={form}>
-        <SC.Layout>
-          <SC.Container>
-            <StepList
-              currentStep={currentStep}
-              onStepChange={handleStepChange}
-            />
-            <Routes>
-              {Object.keys(steps).map((step) => {
-                const stepNumber = Number(step) as Step;
+    <FormikProvider value={form}>
+      <SC.Layout>
+        <SC.Container>
+          <StepList currentStep={currentStep} onStepChange={handleStepChange} />
+          <Routes>
+            {Object.keys(steps).map((step) => {
+              const stepNumber = Number(step) as Step;
 
-                return (
-                  <Route
-                    key={stepNumber}
-                    path={`/${stepNumber}`}
-                    element={
-                      <FormStep
-                        title={steps[currentStep].title}
-                        description={steps[currentStep].description}
-                        onNext={() =>
-                          handleStepChange((currentStep + 1) as Step)
-                        }
-                        onPrevious={() =>
-                          handleStepChange((currentStep - 1) as Step)
-                        }
-                        step={currentStep}
-                      >
-                        {steps[currentStep].component}
-                      </FormStep>
-                    }
-                  />
-                );
-              })}
-            </Routes>
-          </SC.Container>
-        </SC.Layout>
-      </FormikProvider>
-    </>
+              return (
+                <Route
+                  key={stepNumber}
+                  path={`/${stepNumber}`}
+                  element={
+                    <FormStep
+                      title={steps[currentStep].title}
+                      description={steps[currentStep].description}
+                      onNext={() => handleStepChange((currentStep + 1) as Step)}
+                      onPrevious={() =>
+                        handleStepChange((currentStep - 1) as Step)
+                      }
+                      step={currentStep}
+                    >
+                      {steps[currentStep].component}
+                    </FormStep>
+                  }
+                />
+              );
+            })}
+          </Routes>
+        </SC.Container>
+      </SC.Layout>
+    </FormikProvider>
   );
 }
 
