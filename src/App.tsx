@@ -12,6 +12,7 @@ import SelectPlan from './components/SelectPlan';
 import useGetStepFromUrl from './hooks/useGetStepFromUrl';
 import useFormContext from './context/formContext/useFormContext';
 import PickAddOns from './components/PickAddOns';
+import useGetInvalidFields from './hooks/useGetInvalidFields';
 
 const steps = {
   [FIRST_STEP]: {
@@ -47,17 +48,9 @@ function App() {
     currentStepFromUrl || FIRST_STEP
   );
 
-  const { form, isProgressValid } = useMyForm();
+  const { form } = useMyForm();
 
-  const isNextStepValid = async (step: Step) => {
-    if (step === currentStep) return true;
-
-    const isGreaterStep = step > currentStep;
-
-    if (isGreaterStep && !(await isProgressValid())) return false;
-
-    return true;
-  };
+  const { getInvalidFields } = useGetInvalidFields();
 
   useEffect(() => {
     if (currentStepFromUrl > lastValidStep) {
@@ -70,14 +63,24 @@ function App() {
   }, [currentStep, currentStepFromUrl, lastValidStep, navigate]);
 
   const handleStepChange = async (step: Step) => {
-    if (await isNextStepValid(step)) {
-      if (step > lastValidStep) {
-        setLastValidStep(step);
-      }
+    const invalidFields = await getInvalidFields({
+      followingStep: step,
+      formValues: form.values,
+    });
 
-      setCurrentStep(step);
-      navigate(`/${step}`);
+    const isStepValid = invalidFields.length === 0;
+
+    if (!isStepValid) {
+      form.validateForm();
+      return;
     }
+
+    if (step > lastValidStep) {
+      setLastValidStep(step);
+    }
+
+    setCurrentStep(step);
+    navigate(`/${step}`);
   };
 
   return (
