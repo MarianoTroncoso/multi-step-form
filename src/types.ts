@@ -9,10 +9,17 @@ export type Step =
 
 export type ButtonVariant = 'back' | 'next';
 
+export type AddOn = {
+  title: string;
+  description: string;
+  price: string;
+};
+
 export type FormValuesType = {
   name: string;
   email: string;
   phone: string;
   planType: PlanTypeEnum;
   planBilling: PlanBillingEnum;
+  addOns: AddOn[];
 };

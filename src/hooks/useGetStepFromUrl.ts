@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { Step } from './types';
-import { FIRST_STEP, FOURTH_STEP } from './constants';
+import { Step } from '../types';
+import { FIRST_STEP, FOURTH_STEP } from '../constants';
 
 type Props = {
   lastValidStep: Step;

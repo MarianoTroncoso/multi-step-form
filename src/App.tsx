@@ -7,10 +7,12 @@ import { Step } from './types';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import PersonalInfo from './components/PersonalInfo';
 import { FormikProvider } from 'formik';
-import useMyForm from './useMyForm';
+import useMyForm from './hooks/useMyForm';
 import SelectPlan from './components/SelectPlan';
-import useGetStepFromUrl from './useGetStepFromUrl';
+import useGetStepFromUrl from './hooks/useGetStepFromUrl';
 import useFormContext from './context/formContext/useFormContext';
+import PickAddOns from './components/PickAddOns';
+import useGetInvalidFields from './hooks/useGetInvalidFields';
 
 const steps = {
   [FIRST_STEP]: {
@@ -26,7 +28,7 @@ const steps = {
   [THIRD_STEP]: {
     title: 'Pick add-ons',
     description: 'Add-ons help enhance your gaming experience.',
-    component: <div>Tercer Paso</div>,
+    component: <PickAddOns />,
   },
   [FOURTH_STEP]: {
     title: 'Finishing up',
@@ -40,48 +42,45 @@ function App() {
 
   const { lastValidStep, setLastValidStep } = useFormContext();
 
-  // const [lastValidStep, setLastValidStep] = useState<Step>(FIRST_STEP);
-
   const currentStepFromUrl = useGetStepFromUrl({ lastValidStep });
 
   const [currentStep, setCurrentStep] = useState<Step>(
     currentStepFromUrl || FIRST_STEP
   );
 
-  const { form, isProgressValid } = useMyForm();
+  const { form } = useMyForm();
 
-  const isNextStepValid = async (step: Step) => {
-    if (step === currentStep) return true;
-
-    const isGreaterStep = step > currentStep;
-
-    if (isGreaterStep && !(await isProgressValid())) return false;
-
-    return true;
-  };
+  const { getInvalidFields } = useGetInvalidFields();
 
   useEffect(() => {
-    // if the users wants to advance by url to an invalid step, we redirect him to the last valid step
     if (currentStepFromUrl > lastValidStep) {
       setCurrentStep(lastValidStep);
       navigate(`/${lastValidStep}`);
       return;
     }
 
-    // TODO: if the user wants to advance by url to a valid step, we redirect him to that step (add after connect with LS)
-
     navigate(`/${currentStep}`);
   }, [currentStep, currentStepFromUrl, lastValidStep, navigate]);
 
   const handleStepChange = async (step: Step) => {
-    if (await isNextStepValid(step)) {
-      if (step > lastValidStep) {
-        setLastValidStep(step);
-      }
+    const invalidFields = await getInvalidFields({
+      followingStep: step,
+      formValues: form.values,
+    });
 
-      setCurrentStep(step);
-      navigate(`/${step}`);
+    const isStepValid = invalidFields.length === 0;
+
+    if (!isStepValid) {
+      form.validateForm();
+      return;
     }
+
+    if (step > lastValidStep) {
+      setLastValidStep(step);
+    }
+
+    setCurrentStep(step);
+    navigate(`/${step}`);
   };
 
   return (
