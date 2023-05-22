@@ -18,7 +18,7 @@ const SelectPlan: React.FC = () => {
 
   const isYearlySelected = selectedPlanBilling === PlanBillingEnum.YEARLY;
 
-  const planTypes = getPlanTypes(isYearlySelected);
+  const planTypes = getPlanTypes({ isYearlySelected });
 
   return (
     <SC.Wrapper>

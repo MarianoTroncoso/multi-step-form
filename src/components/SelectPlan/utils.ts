@@ -1,7 +1,12 @@
 import { IconArcade, IconAdvanced, IconPro } from '../../assets/images';
 import { PlanTypeEnum } from '../../enums';
 
-export const getPlanTypes = (isYearlySelected: boolean) => {
+// TODO: Add Plan Type
+export const getPlanTypes = ({
+  isYearlySelected,
+}: {
+  isYearlySelected: boolean;
+}) => {
   return [
     {
       value: PlanTypeEnum.ARCADE,

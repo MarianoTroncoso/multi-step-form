@@ -3,24 +3,8 @@ import * as SC from './PickAddOns.styles';
 import useCheckboxList from '../../hooks/useCheckBoxList';
 import { AddOn } from '../../types';
 import useFormContext from '../../context/formContext/useFormContext';
-
-const addOns: AddOn[] = [
-  {
-    title: 'Online service',
-    description: 'Access to multiplayer games',
-    price: '+$1/mo',
-  },
-  {
-    title: 'Larger storage',
-    description: 'Extra 1TB of cloud save',
-    price: '+$2/mo',
-  },
-  {
-    title: 'Customizable profile',
-    description: 'Custom theme on your profile',
-    price: '+$2/mo',
-  },
-];
+import { getAddOns } from './utils';
+import { PlanBillingEnum } from '../../enums';
 
 const PickAddOns: React.FC = () => {
   const { values: formContextValues, setValues } = useFormContext();
@@ -30,6 +14,11 @@ const PickAddOns: React.FC = () => {
   const { isChecked, handleChange } = useCheckboxList({
     defaultChecked,
   });
+
+  const isYearlySelected =
+    formContextValues.planBilling === PlanBillingEnum.YEARLY;
+
+  const addOns = getAddOns({ isYearlySelected });
 
   const handleClick = (title: string) => {
     handleChange(title);
