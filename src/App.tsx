@@ -13,6 +13,7 @@ import useGetStepFromUrl from './hooks/useGetStepFromUrl';
 import useFormContext from './context/formContext/useFormContext';
 import PickAddOns from './components/PickAddOns';
 import useGetInvalidFields from './hooks/useGetInvalidFields';
+import Summary from './components/Summary';
 
 const steps = {
   [FIRST_STEP]: {
@@ -33,7 +34,7 @@ const steps = {
   [FOURTH_STEP]: {
     title: 'Finishing up',
     description: 'Double-check everything looks OK before confirming.',
-    component: <div>Cuarto Paso</div>,
+    component: <Summary />,
   },
 };
 
