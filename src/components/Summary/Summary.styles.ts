@@ -42,17 +42,6 @@ export const PlanSummaryTitle = styled.div`
   color: ${({ theme }) => theme.colors.primary[0]};
 `;
 
-export const PlanSummaryChange = styled.div`
-  cursor: pointer;
-  text-decoration: underline;
-  color: ${({ theme }) => theme.colors.neutral[0]};
-  font-size: ${({ theme }) => theme.fontSizes.small};
-
-  :hover {
-    color: ${({ theme }) => theme.colors.primary[1]};
-  }
-`;
-
 export const PlanSummaryPrice = styled.div`
   font-weight: ${({ theme }) => theme.fontWeights.bold};
 `;
