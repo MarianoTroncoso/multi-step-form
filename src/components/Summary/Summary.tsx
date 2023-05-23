@@ -49,7 +49,6 @@ const Summary: React.FC = () => {
                 {getCapitalizedString(planType)} (
                 {getCapitalizedString(planBilling)})
               </SC.PlanSummaryTitle>
-              <SC.PlanSummaryChange>Change</SC.PlanSummaryChange>
             </div>
             <SC.PlanSummaryPrice>{formattedPlanPrice}</SC.PlanSummaryPrice>
           </SC.PlanSummary>
