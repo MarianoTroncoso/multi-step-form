@@ -32,7 +32,7 @@ export const Description = styled.div`
   padding-top: 3rem;
 `;
 
-export const Title = styled.div`
+export const Name = styled.div`
   font-size: 18px;
   font-weight: ${(props) => props.theme.fontWeights.medium};
   color: ${(props) => props.theme.colors.primary[0]};

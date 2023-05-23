@@ -3,24 +3,8 @@ import * as SC from './PickAddOns.styles';
 import useCheckboxList from '../../hooks/useCheckBoxList';
 import { AddOn } from '../../types';
 import useFormContext from '../../context/formContext/useFormContext';
-
-const addOns: AddOn[] = [
-  {
-    title: 'Online service',
-    description: 'Access to multiplayer games',
-    price: '+$1/mo',
-  },
-  {
-    title: 'Larger storage',
-    description: 'Extra 1TB of cloud save',
-    price: '+$2/mo',
-  },
-  {
-    title: 'Customizable profile',
-    description: 'Custom theme on your profile',
-    price: '+$2/mo',
-  },
-];
+import { addOns } from '../../constants';
+import { getFormattedAddOnPrice } from '../../utils';
 
 const PickAddOns: React.FC = () => {
   const { values: formContextValues, setValues } = useFormContext();
@@ -58,9 +42,14 @@ const PickAddOns: React.FC = () => {
   return (
     <SC.Wrapper>
       {addOns.map((addOn) => {
-        const { title, description, price } = addOn;
+        const { title, description } = addOn;
 
         const isAddOnChecked = isChecked(title);
+
+        const addOnPrice = getFormattedAddOnPrice({
+          addOnTitle: title,
+          planBilling: formContextValues.planBilling,
+        });
 
         return (
           <SC.AddOn key={title} $isChecked={isAddOnChecked}>
@@ -77,7 +66,7 @@ const PickAddOns: React.FC = () => {
                 <SC.Description>{description}</SC.Description>
               </div>
             </SC.Left>
-            <SC.Price>{price}</SC.Price>
+            <SC.Price>{addOnPrice}</SC.Price>
           </SC.AddOn>
         );
       })}

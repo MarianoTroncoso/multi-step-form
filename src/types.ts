@@ -1,5 +1,5 @@
 import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
-import { PlanBillingEnum, PlanTypeEnum } from './enums';
+import { AddOnTitlesEnum, PlanBillingEnum, PlanTypeEnum } from './enums';
 
 export type Step =
   | typeof FIRST_STEP
@@ -10,9 +10,12 @@ export type Step =
 export type ButtonVariant = 'back' | 'next';
 
 export type AddOn = {
-  title: string;
+  title: AddOnTitlesEnum;
   description: string;
-  price: string;
+  price: {
+    [PlanBillingEnum.MONTHLY]: number;
+    [PlanBillingEnum.YEARLY]: number;
+  };
 };
 
 export type FormValuesType = {
@@ -22,4 +25,13 @@ export type FormValuesType = {
   planType: PlanTypeEnum;
   planBilling: PlanBillingEnum;
   addOns: AddOn[];
+};
+
+export type Plan = {
+  name: PlanTypeEnum;
+  icon: string;
+  price: {
+    [PlanBillingEnum.MONTHLY]: number;
+    [PlanBillingEnum.YEARLY]: number;
+  };
 };

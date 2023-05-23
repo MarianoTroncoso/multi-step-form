@@ -1,9 +1,9 @@
-import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
+import { Step } from './types';
 
 export enum PlanTypeEnum {
-  ARCADE = 'arcade',
-  ADVANCED = 'advanced',
-  PRO = 'pro',
+  ARCADE = 'Arcade',
+  ADVANCED = 'Advanced',
+  PRO = 'Pro',
 }
 
 export enum PlanBillingEnum {
@@ -20,13 +20,20 @@ export const FormFieldsEnum = {
   ADD_ONS: 'addOns',
 };
 
+// this is a work around to avoid an error
 export const FIELDS_BY_STEP = {
-  [FIRST_STEP]: [
+  [1 as Step]: [
     FormFieldsEnum.NAME,
     FormFieldsEnum.EMAIL,
     FormFieldsEnum.PHONE,
   ],
-  [SECOND_STEP]: [FormFieldsEnum.PLAN_TYPE, FormFieldsEnum.PLAN_BILLING],
-  [THIRD_STEP]: [FormFieldsEnum.ADD_ONS],
-  [FOURTH_STEP]: [],
+  [2 as Step]: [FormFieldsEnum.PLAN_TYPE, FormFieldsEnum.PLAN_BILLING],
+  [3 as Step]: [FormFieldsEnum.ADD_ONS],
+  [4 as Step]: [],
 };
+
+export enum AddOnTitlesEnum {
+  ONLINE_SERVICE = 'Online service',
+  LARGER_STORAGE = 'Larger storage',
+  CUSTOMIZABLE_PROFILE = 'Customizable profile',
+}
