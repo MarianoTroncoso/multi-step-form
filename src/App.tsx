@@ -1,4 +1,4 @@
-import FormStep from './components/FomStep/FomStep';
+import FormStep from './components/FomStep';
 import StepList from './components/StepList';
 import * as SC from './App.styles';
 import { useEffect, useState } from 'react';

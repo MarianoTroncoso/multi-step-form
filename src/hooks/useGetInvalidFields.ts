@@ -25,15 +25,17 @@ const useGetInvalidFields = () => {
       []
     );
 
-    const promises = fieldsToValidate.map((field) => {
+    const promises = fieldsToValidate.map(async (field) => {
+      const promise = await Promise.resolve(field);
+
       return new Promise((resolve) => {
         validationSchema
-          .validateAt(field, formValues)
+          .validateAt(promise, formValues)
           .then(() => {
             resolve(null);
           })
           .catch(() => {
-            resolve(field);
+            resolve(promise);
           });
       });
     });

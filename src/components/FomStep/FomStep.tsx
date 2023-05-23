@@ -36,7 +36,11 @@ const FormStep: React.FC<Props> = ({
             Go Back
           </Button>
         )}
-        {!isLastStep && <Button onClick={onNext}>Next Step</Button>}
+        {!isLastStep ? (
+          <Button onClick={onNext}>Next Step</Button>
+        ) : (
+          <Button onClick={() => {}}>Confirm</Button>
+        )}
       </SC.FooterWrapper>
     </SC.Wrapper>
   );
