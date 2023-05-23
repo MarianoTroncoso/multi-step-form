@@ -1,19 +1,39 @@
 import React from 'react';
 import * as SC from './Summary.styles';
 import useFormContext from '../../context/formContext/useFormContext';
-import { getFormattedAddOnPrice, getFormattedPrice } from '../../utils';
+import {
+  getFormattedAddOnPrice,
+  getFormattedPrice,
+  getPlanPrice,
+  getTotalAddOnsPrice,
+} from '../../utils';
+import { PlanBillingEnum } from '../../enums';
 
-type Props = {};
-
-const Summary: React.FC<Props> = () => {
+const Summary: React.FC = () => {
   const { values: formContextValues } = useFormContext();
 
   const { addOns, planBilling, planType } = formContextValues;
 
-  const planPrice = getFormattedPrice({
+  const formattedPlanPrice = getFormattedPrice({
     planType,
     planBilling,
   });
+
+  const planPrice = getPlanPrice({
+    planType,
+    planBilling,
+  });
+
+  const addOnsPrice = getTotalAddOnsPrice({
+    addOns,
+    planBilling,
+  });
+
+  const total = planPrice + addOnsPrice;
+
+  const formattedTotal = `+$${total}/${
+    planBilling === PlanBillingEnum.MONTHLY ? 'month' : 'year'
+  } `;
 
   const getCapitalizedString = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -31,7 +51,7 @@ const Summary: React.FC<Props> = () => {
               </SC.PlanSummaryTitle>
               <SC.PlanSummaryChange>Change</SC.PlanSummaryChange>
             </div>
-            <SC.PlanSummaryPrice>{planPrice}</SC.PlanSummaryPrice>
+            <SC.PlanSummaryPrice>{formattedPlanPrice}</SC.PlanSummaryPrice>
           </SC.PlanSummary>
           <hr />
           <SC.AddOnsSummary>
@@ -53,8 +73,11 @@ const Summary: React.FC<Props> = () => {
           </SC.AddOnsSummary>
         </SC.Body>
         <SC.Footer>
-          <SC.FooterLabel>Total (per month)</SC.FooterLabel>
-          <SC.FooterPrice>+$12/month</SC.FooterPrice>
+          <SC.FooterLabel>
+            Total (per{' '}
+            {planBilling === PlanBillingEnum.MONTHLY ? 'month' : 'yeary'})
+          </SC.FooterLabel>
+          <SC.FooterPrice>{formattedTotal}</SC.FooterPrice>
         </SC.Footer>
       </SC.Table>
     </div>
