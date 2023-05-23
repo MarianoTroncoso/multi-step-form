@@ -1,6 +1,6 @@
 import { IconAdvanced, IconArcade, IconPro } from './assets/images';
-import { PlanBillingEnum, PlanTypeEnum } from './enums';
-import { Plan } from './types';
+import { AddOnTitlesEnum, PlanBillingEnum, PlanTypeEnum } from './enums';
+import { AddOn, Plan } from './types';
 
 export const FIRST_STEP = 1;
 export const SECOND_STEP = 2;
@@ -30,6 +30,33 @@ export const planTypes: Plan[] = [
     price: {
       [PlanBillingEnum.MONTHLY]: 15,
       [PlanBillingEnum.YEARLY]: 150,
+    },
+  },
+];
+
+export const addOns: AddOn[] = [
+  {
+    title: AddOnTitlesEnum.ONLINE_SERVICE,
+    description: 'Access to multiplayer games',
+    price: {
+      [PlanBillingEnum.MONTHLY]: 1,
+      [PlanBillingEnum.YEARLY]: 10,
+    },
+  },
+  {
+    title: AddOnTitlesEnum.LARGER_STORAGE,
+    description: 'Extra 1TB of cloud save',
+    price: {
+      [PlanBillingEnum.MONTHLY]: 2,
+      [PlanBillingEnum.YEARLY]: 20,
+    },
+  },
+  {
+    title: AddOnTitlesEnum.CUSTOMIZABLE_PROFILE,
+    description: 'Custom theme on your profile',
+    price: {
+      [PlanBillingEnum.MONTHLY]: 2,
+      [PlanBillingEnum.YEARLY]: 20,
     },
   },
 ];

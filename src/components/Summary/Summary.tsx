@@ -1,13 +1,23 @@
 import React from 'react';
 import * as SC from './Summary.styles';
 import useFormContext from '../../context/formContext/useFormContext';
+import { getFormattedAddOnPrice, getFormattedPrice } from '../../utils';
 
 type Props = {};
 
 const Summary: React.FC<Props> = () => {
   const { values: formContextValues } = useFormContext();
 
-  const { addOns } = formContextValues;
+  const { addOns, planBilling, planType } = formContextValues;
+
+  const planPrice = getFormattedPrice({
+    planType,
+    planBilling,
+  });
+
+  const getCapitalizedString = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
   return (
     <div>
@@ -15,20 +25,28 @@ const Summary: React.FC<Props> = () => {
         <SC.Body>
           <SC.PlanSummary>
             <div>
-              <SC.PlanSummaryTitle>Arcade (Monthly)</SC.PlanSummaryTitle>
+              <SC.PlanSummaryTitle>
+                {getCapitalizedString(planType)} (
+                {getCapitalizedString(planBilling)})
+              </SC.PlanSummaryTitle>
               <SC.PlanSummaryChange>Change</SC.PlanSummaryChange>
             </div>
-            <SC.PlanSummaryPrice>$0.00</SC.PlanSummaryPrice>
+            <SC.PlanSummaryPrice>{planPrice}</SC.PlanSummaryPrice>
           </SC.PlanSummary>
           <hr />
           <SC.AddOnsSummary>
             {addOns.map((addOn) => {
-              const { title, price } = addOn;
+              const { title } = addOn;
+
+              const addOnPrice = getFormattedAddOnPrice({
+                addOnTitle: title,
+                planBilling: formContextValues.planBilling,
+              });
 
               return (
                 <SC.AddOnItem key={title}>
                   <SC.AddOnName>{title}</SC.AddOnName>
-                  <SC.AddOnPrice>{price}</SC.AddOnPrice>
+                  <SC.AddOnPrice>{addOnPrice}</SC.AddOnPrice>
                 </SC.AddOnItem>
               );
             })}

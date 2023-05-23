@@ -31,3 +31,9 @@ export const FIELDS_BY_STEP = {
   [3 as Step]: [FormFieldsEnum.ADD_ONS],
   [4 as Step]: [],
 };
+
+export enum AddOnTitlesEnum {
+  ONLINE_SERVICE = 'Online service',
+  LARGER_STORAGE = 'Larger storage',
+  CUSTOMIZABLE_PROFILE = 'Customizable profile',
+}

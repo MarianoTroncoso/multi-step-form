@@ -1,5 +1,5 @@
-import { planTypes } from './constants';
-import { PlanBillingEnum, PlanTypeEnum } from './enums';
+import { addOns, planTypes } from './constants';
+import { AddOnTitlesEnum, PlanBillingEnum, PlanTypeEnum } from './enums';
 
 enum PlanBillingAbbreviationEnum {
   MONTHLY = 'mo',
@@ -18,6 +18,26 @@ export const getFormattedPrice = ({
   ] as number;
 
   const formattedPlanPrice = `$${planPrice}/${
+    planBilling === PlanBillingEnum.MONTHLY
+      ? PlanBillingAbbreviationEnum.MONTHLY
+      : PlanBillingAbbreviationEnum.YEARLY
+  }`;
+
+  return formattedPlanPrice;
+};
+
+export const getFormattedAddOnPrice = ({
+  addOnTitle,
+  planBilling,
+}: {
+  addOnTitle: AddOnTitlesEnum;
+  planBilling: PlanBillingEnum;
+}): string => {
+  const planPrice = addOns.find((addOn) => addOn.title === addOnTitle)?.price[
+    planBilling
+  ] as number;
+
+  const formattedPlanPrice = `+$${planPrice}/${
     planBilling === PlanBillingEnum.MONTHLY
       ? PlanBillingAbbreviationEnum.MONTHLY
       : PlanBillingAbbreviationEnum.YEARLY

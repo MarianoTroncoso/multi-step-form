@@ -3,8 +3,8 @@ import * as SC from './PickAddOns.styles';
 import useCheckboxList from '../../hooks/useCheckBoxList';
 import { AddOn } from '../../types';
 import useFormContext from '../../context/formContext/useFormContext';
-import { getAddOns } from './utils';
-import { PlanBillingEnum } from '../../enums';
+import { addOns } from '../../constants';
+import { getFormattedAddOnPrice } from '../../utils';
 
 const PickAddOns: React.FC = () => {
   const { values: formContextValues, setValues } = useFormContext();
@@ -14,11 +14,6 @@ const PickAddOns: React.FC = () => {
   const { isChecked, handleChange } = useCheckboxList({
     defaultChecked,
   });
-
-  const isYearlySelected =
-    formContextValues.planBilling === PlanBillingEnum.YEARLY;
-
-  const addOns = getAddOns({ isYearlySelected });
 
   const handleClick = (title: string) => {
     handleChange(title);
@@ -47,9 +42,14 @@ const PickAddOns: React.FC = () => {
   return (
     <SC.Wrapper>
       {addOns.map((addOn) => {
-        const { title, description, price } = addOn;
+        const { title, description } = addOn;
 
         const isAddOnChecked = isChecked(title);
+
+        const addOnPrice = getFormattedAddOnPrice({
+          addOnTitle: title,
+          planBilling: formContextValues.planBilling,
+        });
 
         return (
           <SC.AddOn key={title} $isChecked={isAddOnChecked}>
@@ -66,7 +66,7 @@ const PickAddOns: React.FC = () => {
                 <SC.Description>{description}</SC.Description>
               </div>
             </SC.Left>
-            <SC.Price>{price}</SC.Price>
+            <SC.Price>{addOnPrice}</SC.Price>
           </SC.AddOn>
         );
       })}
