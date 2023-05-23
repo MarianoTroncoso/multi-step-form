@@ -5,6 +5,7 @@ import { FormFieldsEnum, PlanBillingEnum, PlanTypeEnum } from '../../enums';
 import { Field, FormikErrors, FormikValues } from 'formik';
 import useFormContext from '../../context/formContext/useFormContext';
 import { planTypes } from '../../constants';
+import { getFormattedPrice } from '../../utils';
 
 const SelectPlan: React.FC = () => {
   const { values: formContextValues, setValues } = useFormContext();
@@ -44,11 +45,14 @@ const SelectPlan: React.FC = () => {
           return (
             <SC.PlanTypes>
               {planTypes.map((planType) => {
-                const { icon, name, price } = planType;
+                const { icon, name } = planType;
 
                 const isSelected = selectedPlanType === name;
 
-                const planPrice = price[selectedPlanBilling];
+                const planPrice = getFormattedPrice({
+                  planType: name,
+                  planBilling: selectedPlanBilling,
+                });
 
                 return (
                   <SC.PlanType
