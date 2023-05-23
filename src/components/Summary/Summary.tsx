@@ -1,19 +1,13 @@
 import React from 'react';
 import * as SC from './Summary.styles';
+import useFormContext from '../../context/formContext/useFormContext';
 
 type Props = {};
 
 const Summary: React.FC<Props> = () => {
-  const addOns = [
-    {
-      name: 'Cloud Save',
-      price: 2.99,
-    },
-    {
-      name: 'Online Play',
-      price: 3.99,
-    },
-  ];
+  const { values: formContextValues } = useFormContext();
+
+  const { addOns } = formContextValues;
 
   return (
     <div>
@@ -29,10 +23,12 @@ const Summary: React.FC<Props> = () => {
           <hr />
           <SC.AddOnsSummary>
             {addOns.map((addOn) => {
+              const { title, price } = addOn;
+
               return (
-                <SC.AddOnItem key={addOn.name}>
-                  <SC.AddOnName>{addOn.name}</SC.AddOnName>
-                  <SC.AddOnPrice>{addOn.price}</SC.AddOnPrice>
+                <SC.AddOnItem key={title}>
+                  <SC.AddOnName>{title}</SC.AddOnName>
+                  <SC.AddOnPrice>{price}</SC.AddOnPrice>
                 </SC.AddOnItem>
               );
             })}

@@ -1,9 +1,9 @@
 import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from './constants';
 
 export enum PlanTypeEnum {
-  ARCADE = 'arcade',
-  ADVANCED = 'advanced',
-  PRO = 'pro',
+  ARCADE = 'Arcade',
+  ADVANCED = 'Advanced',
+  PRO = 'Pro',
 }
 
 export enum PlanBillingEnum {

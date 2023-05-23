@@ -23,3 +23,12 @@ export type FormValuesType = {
   planBilling: PlanBillingEnum;
   addOns: AddOn[];
 };
+
+export type Plan = {
+  name: PlanTypeEnum;
+  icon: string;
+  price: {
+    [PlanBillingEnum.MONTHLY]: number;
+    [PlanBillingEnum.YEARLY]: number;
+  };
+};

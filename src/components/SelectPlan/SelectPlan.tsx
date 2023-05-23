@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import * as SC from './SelectPlan.styles';
 import Switch from '../Switch';
 import { FormFieldsEnum, PlanBillingEnum, PlanTypeEnum } from '../../enums';
-import { getPlanTypes } from './utils';
 import { Field, FormikErrors, FormikValues } from 'formik';
 import useFormContext from '../../context/formContext/useFormContext';
+import { planTypes } from '../../constants';
 
 const SelectPlan: React.FC = () => {
   const { values: formContextValues, setValues } = useFormContext();
@@ -17,8 +17,6 @@ const SelectPlan: React.FC = () => {
   );
 
   const isYearlySelected = selectedPlanBilling === PlanBillingEnum.YEARLY;
-
-  const planTypes = getPlanTypes({ isYearlySelected });
 
   return (
     <SC.Wrapper>
@@ -46,22 +44,24 @@ const SelectPlan: React.FC = () => {
           return (
             <SC.PlanTypes>
               {planTypes.map((planType) => {
-                const { value, icon, title, price } = planType;
+                const { icon, name, price } = planType;
 
-                const isSelected = selectedPlanType === value;
+                const isSelected = selectedPlanType === name;
+
+                const planPrice = price[selectedPlanBilling];
 
                 return (
                   <SC.PlanType
-                    key={value}
+                    key={name}
                     $isSelected={isSelected}
-                    onClick={() => handlePlanTypeClick(value)}
+                    onClick={() => handlePlanTypeClick(name)}
                   >
                     <div>
-                      <img src={icon} alt="arcade" height={40} />
+                      <img src={icon} alt="" height={40} />
                     </div>
                     <SC.Description>
-                      <SC.Title>{title}</SC.Title>
-                      <SC.Price>{[price]}</SC.Price>
+                      <SC.Name>{name}</SC.Name>
+                      <SC.Price>{planPrice}</SC.Price>
                     </SC.Description>
                   </SC.PlanType>
                 );
