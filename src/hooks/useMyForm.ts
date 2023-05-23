@@ -45,7 +45,9 @@ const useMyForm = () => {
     validateOnBlur: false,
   });
 
-  return { form, validationSchema };
+  const { errors } = form;
+
+  return { form, validationSchema, errors };
 };
 
 export default useMyForm;

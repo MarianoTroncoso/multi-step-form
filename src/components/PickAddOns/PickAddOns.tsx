@@ -20,7 +20,7 @@ const PickAddOns: React.FC = () => {
   return (
     <Field name={FormFieldsEnum.ADD_ONS}>
       {({
-        form: { setFieldValue },
+        form,
       }: {
         form: {
           setFieldValue: (
@@ -28,8 +28,11 @@ const PickAddOns: React.FC = () => {
             value: any,
             shouldValidate?: boolean | undefined
           ) => Promise<FormikErrors<FormikValues>> | Promise<void>;
+          errors: FormikErrors<FormikValues>;
         };
       }) => {
+        const { setFieldValue, errors } = form;
+
         const handleClick = (title: string) => {
           handleChange(title);
 
@@ -62,37 +65,40 @@ const PickAddOns: React.FC = () => {
         };
 
         return (
-          <SC.Wrapper>
-            {addOns.map((addOn) => {
-              const { title, description } = addOn;
+          <>
+            <SC.Wrapper>
+              {addOns.map((addOn) => {
+                const { title, description } = addOn;
 
-              const isAddOnChecked = isChecked(title);
+                const isAddOnChecked = isChecked(title);
 
-              const addOnPrice = getFormattedAddOnPrice({
-                addOnTitle: title,
-                planBilling: formContextValues.planBilling,
-              });
+                const addOnPrice = getFormattedAddOnPrice({
+                  addOnTitle: title,
+                  planBilling: formContextValues.planBilling,
+                });
 
-              return (
-                <SC.AddOn key={title} $isChecked={isAddOnChecked}>
-                  <SC.Left>
-                    <SC.CheckBoxWrapper>
-                      <input
-                        type="checkbox"
-                        checked={isAddOnChecked}
-                        onChange={() => handleClick(title)}
-                      />
-                    </SC.CheckBoxWrapper>
-                    <div>
-                      <SC.Title>{title}</SC.Title>
-                      <SC.Description>{description}</SC.Description>
-                    </div>
-                  </SC.Left>
-                  <SC.Price>{addOnPrice}</SC.Price>
-                </SC.AddOn>
-              );
-            })}
-          </SC.Wrapper>
+                return (
+                  <SC.AddOn key={title} $isChecked={isAddOnChecked}>
+                    <SC.Left>
+                      <SC.CheckBoxWrapper>
+                        <input
+                          type="checkbox"
+                          checked={isAddOnChecked}
+                          onChange={() => handleClick(title)}
+                        />
+                      </SC.CheckBoxWrapper>
+                      <div>
+                        <SC.Title>{title}</SC.Title>
+                        <SC.Description>{description}</SC.Description>
+                      </div>
+                    </SC.Left>
+                    <SC.Price>{addOnPrice}</SC.Price>
+                  </SC.AddOn>
+                );
+              })}
+            </SC.Wrapper>
+            {errors.addOns && <SC.Error>{errors.addOns as string}</SC.Error>}
+          </>
         );
       }}
     </Field>

@@ -51,3 +51,11 @@ export const CheckBoxWrapper = styled.div`
     width: 1.2rem !important;
   }
 `;
+
+export const Error = styled.div`
+  padding-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  color: ${({ theme }) => theme.colors.danger};
+  font-size: ${({ theme }) => theme.fontSizes.small};
+`;
