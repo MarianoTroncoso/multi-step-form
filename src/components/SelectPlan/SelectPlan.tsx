@@ -66,6 +66,9 @@ const SelectPlan: React.FC = () => {
                     <SC.Description>
                       <SC.Name>{name}</SC.Name>
                       <SC.Price>{planPrice}</SC.Price>
+                      {selectedPlanBilling === PlanBillingEnum.YEARLY && (
+                        <SC.Offer>2 months free</SC.Offer>
+                      )}
                     </SC.Description>
                   </SC.PlanType>
                 );

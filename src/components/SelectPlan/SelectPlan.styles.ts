@@ -66,3 +66,10 @@ export const BillingType = styled.div<{ $isSelected?: boolean }>`
       color: ${(props) => props.theme.colors.primary[0]};
     `}
 `;
+
+export const Offer = styled.div`
+  font-size: 0.8rem;
+  white-space: nowrap;
+  padding-top: 0.5rem;
+  color: ${(props) => props.theme.colors.primary[0]};
+`;
