@@ -40,46 +40,44 @@ const Summary: React.FC = () => {
   };
 
   return (
-    <div>
-      <SC.Table>
-        <SC.Body>
-          <SC.PlanSummary>
-            <div>
-              <SC.PlanSummaryTitle>
-                {getCapitalizedString(planType)} (
-                {getCapitalizedString(planBilling)})
-              </SC.PlanSummaryTitle>
-            </div>
-            <SC.PlanSummaryPrice>{formattedPlanPrice}</SC.PlanSummaryPrice>
-          </SC.PlanSummary>
-          <hr />
-          <SC.AddOnsSummary>
-            {addOns.map((addOn) => {
-              const { title } = addOn;
+    <SC.Table>
+      <SC.Body>
+        <SC.PlanSummary>
+          <div>
+            <SC.PlanSummaryTitle>
+              {getCapitalizedString(planType)} (
+              {getCapitalizedString(planBilling)})
+            </SC.PlanSummaryTitle>
+          </div>
+          <SC.PlanSummaryPrice>{formattedPlanPrice}</SC.PlanSummaryPrice>
+        </SC.PlanSummary>
+        <hr />
+        <SC.AddOnsSummary>
+          {addOns.map((addOn) => {
+            const { title } = addOn;
 
-              const addOnPrice = getFormattedAddOnPrice({
-                addOnTitle: title,
-                planBilling: formContextValues.planBilling,
-              });
+            const addOnPrice = getFormattedAddOnPrice({
+              addOnTitle: title,
+              planBilling: formContextValues.planBilling,
+            });
 
-              return (
-                <SC.AddOnItem key={title}>
-                  <SC.AddOnName>{title}</SC.AddOnName>
-                  <SC.AddOnPrice>{addOnPrice}</SC.AddOnPrice>
-                </SC.AddOnItem>
-              );
-            })}
-          </SC.AddOnsSummary>
-        </SC.Body>
-        <SC.Footer>
-          <SC.FooterLabel>
-            Total (per{' '}
-            {planBilling === PlanBillingEnum.MONTHLY ? 'month' : 'yeary'})
-          </SC.FooterLabel>
-          <SC.FooterPrice>{formattedTotal}</SC.FooterPrice>
-        </SC.Footer>
-      </SC.Table>
-    </div>
+            return (
+              <SC.AddOnItem key={title}>
+                <SC.AddOnName>{title}</SC.AddOnName>
+                <SC.AddOnPrice>{addOnPrice}</SC.AddOnPrice>
+              </SC.AddOnItem>
+            );
+          })}
+        </SC.AddOnsSummary>
+      </SC.Body>
+      <SC.Footer>
+        <SC.FooterLabel>
+          Total (per{' '}
+          {planBilling === PlanBillingEnum.MONTHLY ? 'month' : 'yeary'})
+        </SC.FooterLabel>
+        <SC.FooterPrice>{formattedTotal}</SC.FooterPrice>
+      </SC.Footer>
+    </SC.Table>
   );
 };
 

@@ -1,5 +1,10 @@
 import { IconAdvanced, IconArcade, IconPro } from './assets/images';
-import { AddOnTitlesEnum, PlanBillingEnum, PlanTypeEnum } from './enums';
+import {
+  AddOnTitlesEnum,
+  FormFieldsEnum,
+  PlanBillingEnum,
+  PlanTypeEnum,
+} from './enums';
 import { AddOn, Plan } from './types';
 
 export const FIRST_STEP = 1;
@@ -60,3 +65,14 @@ export const addOns: AddOn[] = [
     },
   },
 ];
+
+export const FIELDS_BY_STEP = {
+  [FIRST_STEP]: [
+    FormFieldsEnum.NAME,
+    FormFieldsEnum.EMAIL,
+    FormFieldsEnum.PHONE,
+  ],
+  [SECOND_STEP]: [FormFieldsEnum.PLAN_TYPE, FormFieldsEnum.PLAN_BILLING],
+  [THIRD_STEP]: [FormFieldsEnum.ADD_ONS],
+  [FOURTH_STEP]: [],
+};

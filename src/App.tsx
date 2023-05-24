@@ -113,6 +113,7 @@ function App() {
                 />
               );
             })}
+            {/* Create other route for thank you */}
           </Routes>
         </SC.Container>
       </SC.Layout>

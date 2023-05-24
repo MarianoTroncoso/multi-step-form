@@ -1,5 +1,10 @@
-import { FIRST_STEP, FOURTH_STEP, SECOND_STEP, THIRD_STEP } from '../constants';
-import { FIELDS_BY_STEP } from '../enums';
+import {
+  FIELDS_BY_STEP,
+  FIRST_STEP,
+  FOURTH_STEP,
+  SECOND_STEP,
+  THIRD_STEP,
+} from '../constants';
 import { FormValuesType, Step } from '../types';
 import { validationSchema } from './useMyForm';
 
